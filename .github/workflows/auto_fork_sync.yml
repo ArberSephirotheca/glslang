@@ -1,0 +1,24 @@
+name: Sync fork
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs daily at midnight (adjust the schedule as needed)
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up the upstream repo
+        run: |
+          git remote add upstream https://github.com/KhronosGroup/glslang.git
+          git fetch upstream
+          git checkout main
+          git merge upstream/main
+          git push origin main
