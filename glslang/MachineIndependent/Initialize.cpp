@@ -255,6 +255,8 @@ const std::array BaseFunctions = {
     BuiltInFunction{ EOpAtomicCompSwap,   "atomicCompSwap",   3,   TypeIU,    ClassV1FIOCV, {Es310Desktop400Version} },
     BuiltInFunction{ EOpMix,              "mix",              3,   TypeB,     ClassRegular, {Es310Desktop450Version} },
     BuiltInFunction{ EOpMix,              "mix",              3,   TypeIU,    ClassLB,      {Es310Desktop450Version} },
+    // additional customize built-in for assertion
+    BuiltInFunction{ EOpAssert,           "assert",           1,   TypeB,     ClassRegular, {} },
 };
 
 const std::array DerivativeFunctions = {

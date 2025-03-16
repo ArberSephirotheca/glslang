@@ -2791,7 +2791,17 @@ bool TGlslangToSpvTraverser::visitUnary(glslang::TVisit /* visit */, glslang::TI
         }
 
         return false;
-
+    case glslang::EOpAssert: {
+        // We dont use builder.addDecoration as the compiler will reorder
+        // all the instructions in decorations set to the top of SPIR-V bianry.
+        spv::Instruction* dec = new spv::Instruction(spv::OpDecorateString);
+        dec->reserveOperands(3);
+        dec->addIdOperand(operand);
+        dec->addImmediateOperand(spv::Decoration::DecorationUserSemantic);
+        dec->addStringOperand("assert");
+        builder.addInstruction(std::unique_ptr<spv::Instruction>(dec));
+        return false;
+    }
     case glslang::EOpAssumeEXT:
         builder.addCapability(spv::CapabilityExpectAssumeKHR);
         builder.addExtension(spv::E_SPV_KHR_expect_assume);
@@ -2858,6 +2868,10 @@ spv::Id TGlslangToSpvTraverser::createCompositeConstruct(spv::Id resultTypeId, s
 
 bool TGlslangToSpvTraverser::visitAggregate(glslang::TVisit visit, glslang::TIntermAggregate* node)
 {
+
+    if (node->getOp() == glslang::EOpAssert) {
+        printf("TGlslangToSpvTraverser::visitAggregate: assert\n\n\n");
+    }
     SpecConstantOpModeGuard spec_constant_op_mode_setter(&builder);
     if (node->getType().getQualifier().isSpecConstant())
         spec_constant_op_mode_setter.turnOnSpecConstantOpMode();
@@ -3415,6 +3429,18 @@ bool TGlslangToSpvTraverser::visitAggregate(glslang::TVisit visit, glslang::TInt
         noReturnValue = true;
         break;
 
+    // case glslang::EOpAssert:{
+    //     // Map the operation to a binary
+    //     binOp = node->getOp();
+    //     reduceComparison = false;
+    //     switch (node->getOp()) {
+    //     case glslang::EOpVectorEqual:     binOp = glslang::EOpVectorEqual;      break;
+    //     case glslang::EOpVectorNotEqual:  binOp = glslang::EOpVectorNotEqual;   break;
+    //     default:                          binOp = node->getOp();                break;
+    //     }
+
+    //     break;
+    // }
     default:
         break;
     }
@@ -6944,6 +6970,9 @@ spv::Id TGlslangToSpvTraverser::createUnaryOperation(glslang::TOperator op, OpDe
     bool isFloat = isTypeFloat(typeProxy);
 
     switch (op) {
+    // case glslang::EOpAssert:
+    //     unaryOp = spv::OpDecorateString;
+    //     break;
     case glslang::EOpNegative:
         if (isFloat) {
             unaryOp = spv::OpFNegate;
@@ -7161,6 +7190,8 @@ spv::Id TGlslangToSpvTraverser::createUnaryOperation(glslang::TOperator op, OpDe
     case glslang::EOpAll:
         unaryOp = spv::OpAll;
         break;
+    // case glslang::EOpAssert:
+    //     unaryOp = spv::DecorationAssert;
 
     case glslang::EOpAbs:
         if (isFloat)
@@ -10285,6 +10316,7 @@ bool TGlslangToSpvTraverser::isTrivial(const glslang::TIntermTyped* node)
     case glslang::EOpLogicalXor:
     case glslang::EOpAny:
     case glslang::EOpAll:
+    case glslang::EOpAssert:
         return true;
     default:
         return false;

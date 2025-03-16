@@ -2084,6 +2084,17 @@ void Builder::addSchedulerDecoration(const char* schedulerName) {
     // addInstruction(std::unique_ptr<Instruction>(inst));
 }
 
+// void Builder::addAssertDecorationId(spv::Id targetId, spv::Decoration decoration, spv::Id argId) {
+    
+//     // You may need to ensure your environment supports SPIR-V 1.2 or declare extension.
+//     Instruction* inst = new Instruction(OpDecorateId);
+//     inst->addIdOperand(targetId);        // <target> to decorate
+//     inst->addImmediateOperand(decoration); // The decoration enumerant
+//     inst->addIdOperand(argId);           // The second operand is an ID
+//     addDecoration(inst);
+//     return inst;
+// }
+
 void Builder::addLinkageDecoration(Id id, const char* name, spv::LinkageType linkType) {
     Instruction* dec = new Instruction(OpDecorate);
     dec->reserveOperands(4);

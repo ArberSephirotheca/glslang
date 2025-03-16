@@ -1117,6 +1117,8 @@ enum TOperator {
     EOpImageBlockMatchWindowSADQCOM,
     EOpImageBlockMatchGatherSSDQCOM,
     EOpImageBlockMatchGatherSADQCOM,
+
+    EOpAssert,
 };
 
 enum TLinkType {

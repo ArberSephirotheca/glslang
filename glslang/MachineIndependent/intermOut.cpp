@@ -512,6 +512,7 @@ bool TOutputTraverser::visitUnary(TVisit /* visit */, TIntermUnary* node)
 
     case EOpAny:            out.debug << "any";                  break;
     case EOpAll:            out.debug << "all";                  break;
+    case EOpAssert:         out.debug << "assert";               break;
 
     case EOpArrayLength:    out.debug << "array length";         break;
 

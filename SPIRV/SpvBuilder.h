@@ -406,6 +406,7 @@ public:
     void addName(Id, const char* name);
     void addMemberName(Id, int member, const char* name);
     void addSchedulerDecoration(const char* schedulerName);
+    void addAssertDecorationId(spv::Id targetId, spv::Decoration decoration, spv::Id argId);
     void addDecoration(Id, Decoration, int num = -1);
     void addDecoration(Id, Decoration, const char*);
     void addDecoration(Id, Decoration, const std::vector<unsigned>& literals);
