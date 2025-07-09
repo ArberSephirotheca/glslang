@@ -6390,6 +6390,17 @@ void TParseContext::setLayoutQualifier(const TSourceLoc& loc, TPublicType& publi
             publicType.shaderQualifiers.tlaSubgroupSizeNotDefault = true;
             return;
         }
+        else if (id == "tla_synchroniation_id") {
+            if (nonLiteral)
+                error(loc, "needs a literal integer", "tla_synchroniation_id", "");
+            if (value < 0) {
+                error(loc, "synchronization id must be at least 0", id.c_str(), "");
+                return;
+            }
+            publicType.shaderQualifiers.tlaSynchronizationId = value;
+            publicType.shaderQualifiers.tlaSynchronizationIdNotDefault = true;
+            return;
+        }
         break;
 
     default:
@@ -9940,6 +9951,18 @@ void TParseContext::updateStandaloneQualifierDefaults(const TSourceLoc& loc, con
         TVariable* SubgroupSize = getEditableVariable("tla_SubgroupSize");
         if (SubgroupSize != nullptr){
             SubgroupSize->getWritableConstArray()[0].setUConst(intermediate.getSubgroupSize());
+        }
+    }
+    if (publicType.shaderQualifiers.tlaSynchronizationIdNotDefault) {
+        if (publicType.qualifier.storage == EvqVaryingIn) {
+            if (! intermediate.setSynchronizationId(publicType.shaderQualifiers.tlaSynchronizationId))
+                error(loc, "cannot change previously set synchronization id", "synchronization_id", "");
+        } else {
+            error(loc, "can only apply to 'in'", "synchronization_id", "");
+        }
+        TVariable* SynchronizationId = getEditableVariable("tla_SynchronizationId");
+        if (SynchronizationId != nullptr){
+            SynchronizationId->getWritableConstArray()[0].setUConst(intermediate.getSynchronizationId());
         }
     }
 

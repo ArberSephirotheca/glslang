@@ -215,6 +215,7 @@ protected:
     unsigned int localSize[3];
     unsigned int tlaNumWorkGroups;
     unsigned int tlaSubgroupSize;
+    unsigned int tlaSynchronizationId; // used to identify the synchronization scope of a shader
 };
 
 } // end namespace glslang

@@ -740,6 +740,7 @@ enum BuiltIn {
     BuiltInTlaScheduler = 44,
     BuiltInTlaNUmWorkgroups = 45,
     BuiltInTlaSubgroupSize = 46,
+    BuiltInTlaSynchronizationId = 47,
 };
 
 enum SelectionControlShift {

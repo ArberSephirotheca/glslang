@@ -336,6 +336,7 @@ enum TBuiltInVariable {
     TlaScheduler,
     TlaNumWorkGroups,
     TlaSubgroupSize,
+    TlaSynchronizationId,
 };
 
 // In this enum, order matters; users can assume higher precision is a bigger value
@@ -537,6 +538,7 @@ __inline const char* GetBuiltInVariableString(TBuiltInVariable v)
     case TlaScheduler:                  return "TlaScheduler";
     case TlaNumWorkGroups:              return "TlaNumWorkGroups";
     case TlaSubgroupSize:               return "TlaSubgroupSize";
+    case TlaSynchronizationId:          return "TlaSynchronizationId";
 
     default:                      return "unknown built-in variable";
     }

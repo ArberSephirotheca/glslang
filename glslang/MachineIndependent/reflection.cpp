@@ -1143,6 +1143,7 @@ void TReflection::buildAttributeReflection(EShLanguage stage, const TIntermediat
         
         tlaNumWorkGroups = intermediate.getNumWorkGroups();
         tlaSubgroupSize = intermediate.getSubgroupSize();
+        tlaSynchronizationId = intermediate.getSynchronizationId();
     }
 }
 

@@ -672,7 +672,22 @@ public:
         subgroupSize = size;
         return true;
     }
+
+    bool setSynchronizationId(unsigned int id)
+    {
+        if (synchronizationId > 0)
+            return id == synchronizationId;
+        synchronizationId = id;
+        return true;
+    }
     unsigned int getSubgroupSize() const { return subgroupSize; }
+    
+    unsigned int getSynchronizationId() const
+    {
+        // The synchronization id is used to identify the synchronization scope of a shader.
+        // It is set to 0 by default, and can be set to a non-zero value by the user.
+        return synchronizationId;
+    }
     void output(TInfoSink&, bool tree);
 
     bool isEsProfile() const { return profile == EEsProfile; }
@@ -1212,6 +1227,7 @@ protected:
     int localSize[3];
     int numWorkGroups;
     int subgroupSize;
+    int synchronizationId; // used to identify the synchronization scope of a shader
     bool localSizeNotDefault[3];
     bool numWorkGroupsNotDefault;
     bool subgroupSizeNotDefault;

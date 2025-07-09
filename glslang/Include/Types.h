@@ -1296,6 +1296,8 @@ struct TShaderQualifiers {
     bool tlaNumWorkGroupsNotDefault;     // compute shader
     int tlaSubgroupSize;      // compute shader specialization id for gl_SubgroupSize
     bool tlaSubgroupSizeNotDefault;      // compute shader
+    int tlaSynchronizationId; // compute shader specialization id for gl_SubgroupSynchronizationId
+    bool tlaSynchronizationIdNotDefault; // compute shader
     bool earlyFragmentTests;  // fragment input
     bool postDepthCoverage;   // fragment input
     bool earlyAndLateFragmentTestsAMD; //fragment input
@@ -1330,11 +1332,13 @@ struct TShaderQualifiers {
         localSize[2] = 1;
         tlaNumWorkGroups = 1;
         tlaSubgroupSize = 1;
+        tlaSynchronizationId = 0;
         localSizeNotDefault[0] = false;
         localSizeNotDefault[1] = false;
         localSizeNotDefault[2] = false;
         tlaNumWorkGroupsNotDefault = false;
         tlaSubgroupSizeNotDefault = false;
+        tlaSynchronizationIdNotDefault = false;
         localSizeSpecId[0] = TQualifier::layoutNotSet;
         localSizeSpecId[1] = TQualifier::layoutNotSet;
         localSizeSpecId[2] = TQualifier::layoutNotSet;
