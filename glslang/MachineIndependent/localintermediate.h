@@ -675,8 +675,9 @@ public:
 
     bool setSynchronizationId(unsigned int id)
     {
-        if (synchronizationId > 0)
-            return id == synchronizationId;
+        // if (numWorkGroupsNotDefault)
+        //     return id == synchronizationId;
+        numWorkGroupsNotDefault = true;
         synchronizationId = id;
         return true;
     }

@@ -6390,9 +6390,9 @@ void TParseContext::setLayoutQualifier(const TSourceLoc& loc, TPublicType& publi
             publicType.shaderQualifiers.tlaSubgroupSizeNotDefault = true;
             return;
         }
-        else if (id == "tla_synchroniation_id") {
+        else if (id == "tla_synchronization_id") {
             if (nonLiteral)
-                error(loc, "needs a literal integer", "tla_synchroniation_id", "");
+                error(loc, "needs a literal integer", "tla_synchronization_id", "");
             if (value < 0) {
                 error(loc, "synchronization id must be at least 0", id.c_str(), "");
                 return;

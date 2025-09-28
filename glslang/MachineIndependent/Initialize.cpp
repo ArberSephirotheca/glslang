@@ -5100,6 +5100,7 @@ void TBuiltIns::initialize(int version, EProfile profile, const SpvVersion& spvV
         stageBuiltins[EShLangCompute].append(
             "in    highp uvec3 gl_NumWorkGroups;"
             "const    highp uint tla_NumWorkGroups = 1;"
+            "const  highp uint tla_SynchronizationId = 1;"
             "const    highp uint tla_SubgroupSize = 1;"
             "const highp uvec3 gl_WorkGroupSize = uvec3(1,1,1);"
 
@@ -8945,6 +8946,7 @@ void TBuiltIns::identifyBuiltIns(int version, EProfile profile, const SpvVersion
         BuiltInVariable("tla_scheduler",            TlaScheduler,            symbolTable);
         BuiltInVariable("tla_NumWorkGroups",        TlaNumWorkGroups,        symbolTable);
         BuiltInVariable("tla_SubgroupSize",         TlaSubgroupSize,         symbolTable);
+        BuiltInVariable("tla_SynchronizationId",  TlaSynchronizationId,  symbolTable);
 
 
         if ((profile != EEsProfile && version >= 140) ||
